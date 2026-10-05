@@ -1,0 +1,3 @@
+REPORT: (ADD SCREENSHORTS!)
+First I created a white tringle and I prefered to do it in a different function:"initDrawTriangle".
+Then I added colors to the vertixes with the function "g_vertexColors" and I needed to change "initGPUgeometry()" by adding a buffer "colorBufferSize". This was necessary in order to pass the colors to the GPU. I copied the code of "vertexBufferSize", I changed the names and the index. I added color settings (vertex attribute) also on vertexShader and fragmentShader files (slides pag 30)

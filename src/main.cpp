@@ -17,6 +17,9 @@
 // ----------------------------------------------------------------------------
 
 #define _USE_MATH_DEFINES
+// VS code on Widows may not highlight _MY_OPENGL_IS_33_ in the cmake file
+// => write:
+// #define _MY_OPENGL_IS_33_
 
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
@@ -53,11 +56,14 @@ GLuint g_program = 0; // A GPU program contains at least a vertex shader and a f
 GLuint g_vao = 0;
 GLuint g_posVbo = 0;
 GLuint g_ibo = 0;
+GLuint g_colorVbo = 0;
 
 // All vertex positions packed in one array [x0, y0, z0, x1, y1, z1, ...]
 std::vector<float> g_vertexPositions;
 // All triangle indices packed in one array [v00, v01, v02, v10, v11, v12, ...] with vij the index of j-th vertex of the i-th triangle
 std::vector<unsigned int> g_triangleIndices;
+// Colors
+std::vector<float> g_vertexColors;
 
 // Basic camera model
 class Camera {
@@ -216,11 +222,24 @@ void initGPUprogram() {
   // TODO: set shader variables, textures, etc.
 }
 
+void initDrawTriangle(){
+  g_vertexPositions = {
+    0.f, 0.f, 0.f,
+    1.f, 0.f, 0.f,
+    0.f, 1.f, 0.f,
+  };
+  g_triangleIndices = {0,1,2};
+  g_vertexColors={
+    1.f, 0.f, 0.f,
+    0.f, 1.f, 0.f,
+    0.f, 0.f, 1.f,
+  };
+}
+
 // Define your mesh(es) in the CPU memory
 void initCPUgeometry() {
   // TODO: add vertices and indices for your mesh(es)
-  g_vertexPositions = {};
-  g_triangleIndices = {};
+  initDrawTriangle();
 }
 
 void initGPUgeometry() {
@@ -234,6 +253,7 @@ void initGPUgeometry() {
   glBindVertexArray(g_vao);
 
   // Generate a GPU buffer to store the positions of the vertices
+  // index=0
   size_t vertexBufferSize = sizeof(float)*g_vertexPositions.size(); // Gather the size of the buffer from the CPU-side vector
 #ifdef _MY_OPENGL_IS_33_
   glGenBuffers(1, &g_posVbo);
@@ -247,6 +267,26 @@ void initGPUgeometry() {
   glNamedBufferStorage(g_posVbo, vertexBufferSize, g_vertexPositions.data(), GL_DYNAMIC_STORAGE_BIT); // Create a data storage on the GPU and fill it from a CPU array
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), 0);
   glEnableVertexAttribArray(0);
+#endif
+
+
+  // Generate a GPU buffer to store the color of the vertices
+  // index=1
+  size_t colorBufferSize = sizeof(float)*g_vertexColors.size(); // Gather the size of the buffer from the CPU-side vector
+#ifdef _MY_OPENGL_IS_33_
+  glGenBuffers(1, &g_colorVbo);
+  glBindBuffer(GL_ARRAY_BUFFER, g_colorVbo);
+  glBufferData(GL_ARRAY_BUFFER, colorBufferSize, g_vertexColors.data(), GL_DYNAMIC_READ);
+  // color = location 1
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), 0);
+  glEnableVertexAttribArray(1);
+#else
+  glCreateBuffers(1, &g_colorVbo);
+  glBindBuffer(GL_ARRAY_BUFFER, g_colorVbo);
+  glNamedBufferStorage(g_colorVbo, colorBufferSize, g_vertexColors.data(), GL_DYNAMIC_STORAGE_BIT); // Create a data storage on the GPU and fill it from a CPU array
+  // color = location 1
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), 0);
+  glEnableVertexAttribArray(1);
 #endif
 
   // Same for an index buffer object that stores the list of indices of the
