@@ -1,0 +1,147 @@
+[
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build",
+  "command": "/usr/bin/c++ -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glad/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glm/.. -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glm -std=gnu++11 -o CMakeFiles/tpOpenGL.dir/main.cpp.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/main.cpp",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/main.cpp"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build",
+  "command": "/usr/bin/cc -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glad/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glm/.. -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glm  -o CMakeFiles/tpOpenGL.dir/dep/glad/src/gl.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glad/src/gl.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glad/src/gl.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/context.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/context.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/context.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/init.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/init.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/init.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/input.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/input.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/input.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/monitor.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/monitor.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/monitor.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/platform.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/platform.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/platform.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/vulkan.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/vulkan.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/vulkan.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/window.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/window.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/window.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/egl_context.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/egl_context.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/egl_context.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/osmesa_context.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/osmesa_context.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/osmesa_context.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/null_init.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/null_init.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/null_init.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/null_monitor.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/null_monitor.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/null_monitor.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/null_window.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/null_window.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/null_window.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/null_joystick.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/null_joystick.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/null_joystick.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/posix_module.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/posix_module.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/posix_module.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/posix_time.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/posix_time.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/posix_time.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/posix_thread.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/posix_thread.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/posix_thread.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/x11_init.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/x11_init.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/x11_init.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/x11_monitor.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/x11_monitor.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/x11_monitor.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/x11_window.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/x11_window.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/x11_window.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/xkb_unicode.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/xkb_unicode.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/xkb_unicode.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/glx_context.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/glx_context.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/glx_context.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/wl_init.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/wl_init.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/wl_init.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/wl_monitor.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/wl_monitor.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/wl_monitor.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/wl_window.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/wl_window.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/wl_window.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/linux_joystick.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/linux_joystick.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/linux_joystick.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src",
+  "command": "/usr/bin/cc -DHAVE_MEMFD_CREATE -D_DEFAULT_SOURCE -D_GLFW_WAYLAND -D_GLFW_X11 -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/include -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glfw/src -fPIC -Wall -std=c99 -o CMakeFiles/glfw.dir/posix_poll.c.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/posix_poll.c",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glfw/src/posix_poll.c"
+},
+{
+  "directory": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/build/dep/glm/glm",
+  "command": "/usr/bin/c++ -D_MY_OPENGL_IS_33_ -I/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glm -std=c++11 -o CMakeFiles/glm.dir/detail/glm.cpp.o -c /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glm/glm/detail/glm.cpp",
+  "file": "/cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glm/glm/detail/glm.cpp"
+}
+]
