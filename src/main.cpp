@@ -65,6 +65,24 @@ std::vector<unsigned int> g_triangleIndices;
 // Colors
 std::vector<float> g_vertexColors;
 
+// Mesh class
+class Mesh{
+public:
+  void init();
+  void render();
+  static std::shared_ptr<Mesh> genSphere(const size_t resolution=16);
+
+  private:
+    std::vector<float> m_vertexPositions;
+    std::vector<float> m_vertexNormals;
+    std::vector<unsigned int> m_triangleIndices;
+    GLuint m_vao = 0;
+    GLuint m_posVbo = 0;
+    GLuint m_normalVbo = 0;
+    GLuint m_ibo = 0;
+};
+
+
 // Basic camera model
 class Camera {
 public:
@@ -239,7 +257,8 @@ void initDrawTriangle(){
 // Define your mesh(es) in the CPU memory
 void initCPUgeometry() {
   // TODO: add vertices and indices for your mesh(es)
-  initDrawTriangle();
+  // initDrawTriangle();
+  initDrawSphere(32,32);
 }
 
 void initGPUgeometry() {
