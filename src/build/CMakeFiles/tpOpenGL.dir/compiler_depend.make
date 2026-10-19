@@ -597,6 +597,11 @@ CMakeFiles/tpOpenGL.dir/main.cpp.o: /cal/exterieurs/sfiotek-26/Downloads/TP00-Op
   /usr/include/c++/12/bits/atomic_base.h \
   /usr/include/c++/12/bits/atomic_lockfree_defines.h \
   /usr/include/c++/12/backward/auto_ptr.h \
+  /usr/include/c++/12/algorithm \
+  /usr/include/c++/12/bits/stl_algo.h \
+  /usr/include/c++/12/bits/algorithmfwd.h \
+  /usr/include/c++/12/bits/stl_heap.h \
+  /usr/include/c++/12/bits/uniform_int_dist.h \
   /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/stb_image.h \
   /usr/include/c++/12/stdlib.h \
   /usr/include/c++/12/math.h \
@@ -611,6 +616,12 @@ CMakeFiles/tpOpenGL.dir/main.cpp.o: /cal/exterieurs/sfiotek-26/Downloads/TP00-Op
 /usr/lib/gcc/x86_64-linux-gnu/12/include/mmintrin.h:
 
 /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/stb_image.h:
+
+/usr/include/c++/12/bits/stl_heap.h:
+
+/usr/include/c++/12/bits/stl_algo.h:
+
+/usr/include/c++/12/algorithm:
 
 /usr/include/c++/12/bits/atomic_lockfree_defines.h:
 
@@ -659,6 +670,8 @@ CMakeFiles/tpOpenGL.dir/main.cpp.o: /cal/exterieurs/sfiotek-26/Downloads/TP00-Op
 /usr/include/c++/12/bits/basic_string.h:
 
 /usr/include/c++/12/bits/stl_algobase.h:
+
+/usr/include/c++/12/bits/uniform_int_dist.h:
 
 /usr/include/c++/12/bits/ptr_traits.h:
 
@@ -951,6 +964,8 @@ CMakeFiles/tpOpenGL.dir/main.cpp.o: /cal/exterieurs/sfiotek-26/Downloads/TP00-Op
 /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glm/glm/ext/scalar_constants.inl:
 
 /cal/exterieurs/sfiotek-26/Downloads/TP00-OpenGL/src/dep/glm/glm/vec3.hpp:
+
+/usr/include/c++/12/bits/algorithmfwd.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
 

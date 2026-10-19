@@ -5,6 +5,7 @@ layout(location=1) in vec3 vColor;
 //debug:
 layout(location=1) in vec3 vNormal;
 out vec3 fColor;
+out vec3 fPosition;
 //debug:
 out vec3 fNormal;
 

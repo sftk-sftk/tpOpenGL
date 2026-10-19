@@ -35,6 +35,7 @@
 #include <string>
 #include <cmath>
 #include <memory>
+#include <algorithm>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -82,6 +83,122 @@ public:
     GLuint m_ibo = 0;
 };
 
+// Mesh
+std::shared_ptr<Mesh> g_sphere;
+
+// to control: genSphere, Mesh::init, Mesh::render
+std::shared_ptr<Mesh> Mesh::genSphere(const size_t resolution) {
+    auto sphere = std::make_shared<Mesh>();
+
+    const unsigned int n = static_cast<unsigned int>(
+        std::max<size_t>(3, resolution)
+    );
+
+    const float pi = std::acos(-1.0f);
+
+    // Generazione dei vertici e delle normali
+    for (unsigned int i = 0; i <= n; ++i) {
+        const float theta = pi * static_cast<float>(i) / n;
+
+        for (unsigned int j = 0; j <= n; ++j) {
+            const float phi = 2.0f * pi * static_cast<float>(j) / n;
+
+            const float x = std::sin(theta) * std::cos(phi);
+            const float y = std::cos(theta);
+            const float z = std::sin(theta) * std::sin(phi);
+
+            // Sfera di raggio 1 centrata nell'origine
+            sphere->m_vertexPositions.push_back(x);
+            sphere->m_vertexPositions.push_back(y);
+            sphere->m_vertexPositions.push_back(z);
+
+            // Sulla sfera unitaria, la normale è uguale alla posizione
+            sphere->m_vertexNormals.push_back(x);
+            sphere->m_vertexNormals.push_back(y);
+            sphere->m_vertexNormals.push_back(z);
+        }
+    }
+
+    // Generazione degli indici dei triangoli
+    for (unsigned int i = 0; i < n; ++i) {
+        for (unsigned int j = 0; j < n; ++j) {
+            const unsigned int k1 = i * (n + 1) + j;
+            const unsigned int k2 = k1 + n + 1;
+
+            // Primo triangolo
+            sphere->m_triangleIndices.push_back(k1);
+            sphere->m_triangleIndices.push_back(k1 + 1);
+            sphere->m_triangleIndices.push_back(k2);
+
+            // Secondo triangolo
+            sphere->m_triangleIndices.push_back(k1 + 1);
+            sphere->m_triangleIndices.push_back(k2 + 1);
+            sphere->m_triangleIndices.push_back(k2);
+        }
+    }
+
+    return sphere;
+}
+
+void Mesh::init() {
+    glGenVertexArrays(1, &m_vao);
+    glBindVertexArray(m_vao);
+
+    // VBO delle posizioni: attributo 0
+    glGenBuffers(1, &m_posVbo);
+    glBindBuffer(GL_ARRAY_BUFFER, m_posVbo);
+    glBufferData(
+        GL_ARRAY_BUFFER,
+        m_vertexPositions.size() * sizeof(float),
+        m_vertexPositions.data(),
+        GL_STATIC_DRAW
+    );
+
+    glVertexAttribPointer(
+        0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr
+    );
+    glEnableVertexAttribArray(0);
+
+    // VBO delle normali: attributo 1
+    glGenBuffers(1, &m_normalVbo);
+    glBindBuffer(GL_ARRAY_BUFFER, m_normalVbo);
+    glBufferData(
+        GL_ARRAY_BUFFER,
+        m_vertexNormals.size() * sizeof(float),
+        m_vertexNormals.data(),
+        GL_STATIC_DRAW
+    );
+
+    glVertexAttribPointer(
+        1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr
+    );
+    glEnableVertexAttribArray(1);
+
+    // IBO degli indici dei triangoli
+    glGenBuffers(1, &m_ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
+    glBufferData(
+        GL_ELEMENT_ARRAY_BUFFER,
+        m_triangleIndices.size() * sizeof(unsigned int),
+        m_triangleIndices.data(),
+        GL_STATIC_DRAW
+    );
+
+    glBindVertexArray(0);
+}
+
+void Mesh::render() {
+    glBindVertexArray(m_vao);
+
+    glDrawElements(
+        GL_TRIANGLES,
+        static_cast<GLsizei>(m_triangleIndices.size()),
+        GL_UNSIGNED_INT,
+        nullptr
+    );
+
+    glBindVertexArray(0);
+}
 
 // Basic camera model
 class Camera {
@@ -258,7 +375,7 @@ void initDrawTriangle(){
 void initCPUgeometry() {
   // TODO: add vertices and indices for your mesh(es)
   // initDrawTriangle();
-  initDrawSphere(32,32);
+  g_sphere = Mesh::genSphere(32);
 }
 
 void initGPUgeometry() {
@@ -340,6 +457,7 @@ void init() {
   initCPUgeometry();
   initGPUprogram();
   initGPUgeometry();
+  g_sphere->init();
   initCamera();
 }
 
@@ -356,12 +474,17 @@ void render() {
 
   const glm::mat4 viewMatrix = g_camera.computeViewMatrix();
   const glm::mat4 projMatrix = g_camera.computeProjectionMatrix();
+  const glm::vec3 camPosition = g_camera.getPosition();
 
   glUniformMatrix4fv(glGetUniformLocation(g_program, "viewMat"), 1, GL_FALSE, glm::value_ptr(viewMatrix)); // compute the view matrix of the camera and pass it to the GPU program
   glUniformMatrix4fv(glGetUniformLocation(g_program, "projMat"), 1, GL_FALSE, glm::value_ptr(projMatrix)); // compute the projection matrix of the camera and pass it to the GPU program
+  glUniform3f(glGetUniformLocation(g_program, "camPos"), camPosition[0], camPosition[1], camPosition[2]);
 
-  glBindVertexArray(g_vao);     // activate the VAO storing geometry data
-  glDrawElements(GL_TRIANGLES, g_triangleIndices.size(), GL_UNSIGNED_INT, 0); // Call for rendering: stream the current GPU geometry through the current GPU program
+  // we don't use it anymore if we use Mesh g_sphere
+  //glBindVertexArray(g_vao);     // activate the VAO storing geometry data
+  //glDrawElements(GL_TRIANGLES, g_triangleIndices.size(), GL_UNSIGNED_INT, 0); // Call for rendering: stream the current GPU geometry through the current GPU program
+  //instead we write:
+  g_sphere->render();
 }
 
 // Update any accessible variable based on the current time
