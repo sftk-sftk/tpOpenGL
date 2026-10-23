@@ -40,12 +40,18 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
-// constants
+// constants: dimensions
 const static float kSizeSun = 1;
 const static float kSizeEarth = 0.5;
 const static float kSizeMoon = 0.25;
 const static float kRadOrbitEarth = 10;
 const static float kRadOrbitMoon = 2;
+
+// constants: rotation
+const static float kEarthRotationPeriod = 10.0f;
+const static float kEarthOrbitPeriod = 2.0f * kEarthRotationPeriod;
+const static float kMoonOrbitPeriod = 0.5f * kEarthRotationPeriod;
+const static float kMoonRotationPeriod = kMoonOrbitPeriod;
 
 // Model transformation matrices
 glm::mat4 g_sun, g_earth, g_moon;
@@ -480,8 +486,8 @@ void initCamera() {
   glfwGetWindowSize(g_window, &width, &height);
   g_camera.setAspectRatio(static_cast<float>(width)/static_cast<float>(height));
 
-  g_camera.setPosition(glm::vec3(6.0f, 5.0f, 24.0f));
-  g_camera.setFoV(45.0f);
+  g_camera.setPosition(glm::vec3(0.0f, 0.0f, 40.0f));
+  g_camera.setFoV(40.0f);
   g_camera.setNear(0.1f);
   g_camera.setFar(100.0f);
 }
@@ -601,10 +607,91 @@ void render() {
 }
 
 // Update any accessible variable based on the current time
-void update(const float currentTimeInSec) {
-  // std::cout << currentTimeInSec << std::endl;
 
+void update(const float currentTimeInSec) {
+    const float t = currentTimeInSec;
+    const float pi = glm::pi<float>();
+
+    // Angles in radians
+    const float earthRotationAngle =
+        2.0f * pi * t / kEarthRotationPeriod;
+
+    const float earthOrbitAngle =
+        2.0f * pi * t / kEarthOrbitPeriod;
+
+    const float moonOrbitAngle =
+        2.0f * pi * t / kMoonOrbitPeriod;
+
+    const float moonRotationAngle =
+        2.0f * pi * t / kMoonRotationPeriod;
+
+    // 1. Earth orbital frame: revolution around the Sun
+    glm::mat4 earthOrbitFrame(1.0f);
+
+    earthOrbitFrame = glm::rotate(
+        earthOrbitFrame,
+        earthOrbitAngle,
+        glm::vec3(0.0f, 0.0f, 1.0f)
+    );
+
+    earthOrbitFrame = glm::translate(
+        earthOrbitFrame,
+        glm::vec3(kRadOrbitEarth, 0.0f, 0.0f)
+    );
+
+    // 2. Earth self-rotation, with a slightly tilted axis
+    const float tiltAngle = glm::radians(15.0f);
+
+    const glm::vec3 earthAxis = glm::normalize(
+        glm::vec3(
+            std::sin(tiltAngle),
+            0.0f,
+            std::cos(tiltAngle)
+        )
+    );
+
+    g_earth = earthOrbitFrame;
+
+    g_earth = glm::rotate(
+        g_earth,
+        earthRotationAngle,
+        earthAxis
+    );
+
+    g_earth = glm::scale(
+        g_earth,
+        glm::vec3(kSizeEarth)
+    );
+
+    // 3. Moon revolution around the Earth
+    glm::mat4 moonOrbitFrame = earthOrbitFrame;
+
+    moonOrbitFrame = glm::rotate(
+        moonOrbitFrame,
+        moonOrbitAngle,
+        glm::vec3(0.0f, 0.0f, 1.0f)
+    );
+
+    moonOrbitFrame = glm::translate(
+        moonOrbitFrame,
+        glm::vec3(kRadOrbitMoon, 0.0f, 0.0f)
+    );
+
+    // 4. Synchronous Moon rotation
+    // The Moon's orientation follows its orbital angle.
+    // This keeps the same side facing the Earth.
+    g_moon = glm::rotate(
+        moonOrbitFrame,
+        moonRotationAngle - moonOrbitAngle,
+        glm::vec3(0.0f, 0.0f, 1.0f)
+    );
+
+    g_moon = glm::scale(
+        g_moon,
+        glm::vec3(kSizeMoon)
+    );
 }
+
 
 int main(int argc, char ** argv) {
   init(); // Your initialization code (user interface, OpenGL states, scene with geometry, material, lights, etc)
