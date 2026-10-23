@@ -47,6 +47,9 @@ const static float kSizeMoon = 0.25;
 const static float kRadOrbitEarth = 10;
 const static float kRadOrbitMoon = 2;
 
+// Model transformation matrices
+glm::mat4 g_sun, g_earth, g_moon;
+
 // Window parameters
 GLFWwindow *g_window = nullptr;
 
@@ -140,6 +143,37 @@ std::shared_ptr<Mesh> Mesh::genSphere(const size_t resolution) {
     return sphere;
 }
 
+// M = T R S
+void initScene() {
+    // Sun: at the origin, radius 1
+    g_sun = glm::scale(
+        glm::mat4(1.0f),
+        glm::vec3(kSizeSun)
+    );
+
+    // Earth: 10 units from the Sun, radius 0.5
+    g_earth = glm::translate(
+        glm::mat4(1.0f),
+        glm::vec3(kRadOrbitEarth, 0.0f, 0.0f)
+    );
+
+    g_earth = glm::scale(
+        g_earth,
+        glm::vec3(kSizeEarth)
+    );
+
+    // Moon: 2 units from Earth, radius 0.25
+    g_moon = glm::translate(
+        g_earth,
+        glm::vec3(kRadOrbitMoon, 0.0f, 0.0f)
+    );
+
+    g_moon = glm::scale(
+        g_moon,
+        glm::vec3(kSizeMoon / kSizeEarth)
+    );
+}
+
 void Mesh::init() {
     glGenVertexArrays(1, &m_vao);
     glBindVertexArray(m_vao);
@@ -215,7 +249,7 @@ public:
   inline glm::vec3 getPosition() { return m_pos; }
 
   inline glm::mat4 computeViewMatrix() const {
-    return glm::lookAt(m_pos, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+    return glm::lookAt(m_pos, glm::vec3(6.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
   }
 
   // Returns the projection matrix stemming from the camera intrinsic parameter.
@@ -446,15 +480,17 @@ void initCamera() {
   glfwGetWindowSize(g_window, &width, &height);
   g_camera.setAspectRatio(static_cast<float>(width)/static_cast<float>(height));
 
-  g_camera.setPosition(glm::vec3(0.0, 0.0, 3.0));
-  g_camera.setNear(0.1);
-  g_camera.setFar(80.1);
+  g_camera.setPosition(glm::vec3(6.0f, 5.0f, 24.0f));
+  g_camera.setFoV(45.0f);
+  g_camera.setNear(0.1f);
+  g_camera.setFar(100.0f);
 }
 
 void init() {
   initGLFW();
   initOpenGL();
   initCPUgeometry();
+  initScene();
   initGPUprogram();
   initGPUgeometry();
   g_sphere->init();
@@ -469,8 +505,10 @@ void clear() {
 }
 
 // The main rendering call
-void render() {
+/*void render() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Erase the color and z buffers.
+
+  glUseProgram(g_program);
 
   const glm::mat4 viewMatrix = g_camera.computeViewMatrix();
   const glm::mat4 projMatrix = g_camera.computeProjectionMatrix();
@@ -485,6 +523,81 @@ void render() {
   //glDrawElements(GL_TRIANGLES, g_triangleIndices.size(), GL_UNSIGNED_INT, 0); // Call for rendering: stream the current GPU geometry through the current GPU program
   //instead we write:
   g_sphere->render();
+}*/
+
+void render() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glUseProgram(g_program);
+
+    const glm::mat4 viewMatrix =
+        g_camera.computeViewMatrix();
+
+    const glm::mat4 projMatrix =
+        g_camera.computeProjectionMatrix();
+
+    const glm::vec3 camPosition =
+        g_camera.getPosition();
+
+    // Uniform locations
+    const GLint modelLoc =
+        glGetUniformLocation(g_program, "modelMat");
+    const GLint viewLoc =
+        glGetUniformLocation(g_program, "viewMat");
+    const GLint projLoc =
+        glGetUniformLocation(g_program, "projMat");
+    const GLint colorLoc =
+        glGetUniformLocation(g_program, "objectColor");
+    const GLint lightPosLoc =
+        glGetUniformLocation(g_program, "lightPos");
+    const GLint lightColorLoc =
+        glGetUniformLocation(g_program, "lightColor");
+    const GLint camPosLoc =
+        glGetUniformLocation(g_program, "camPos");
+    const GLint isSunLoc =
+        glGetUniformLocation(g_program, "isSun");
+
+    // Camera uniforms: shared by all planets
+    glUniformMatrix4fv(
+        viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix)
+    );
+    glUniformMatrix4fv(
+        projLoc, 1, GL_FALSE, glm::value_ptr(projMatrix)
+    );
+    glUniform3fv(
+        camPosLoc, 1, glm::value_ptr(camPosition)
+    );
+
+    // The Sun is the only light source
+    glUniform3f(lightPosLoc, 0.0f, 0.0f, 0.0f);
+    glUniform3f(lightColorLoc, 1.0f, 1.0f, 1.0f);
+
+    // 1. SUN
+    glUniformMatrix4fv(
+        modelLoc, 1, GL_FALSE, glm::value_ptr(g_sun)
+    );
+    glUniform3f(colorLoc, 1.0f, 0.8f, 0.1f);
+    glUniform1i(isSunLoc, GL_TRUE);
+
+    g_sphere->render();
+
+    // 2. EARTH
+    glUniformMatrix4fv(
+        modelLoc, 1, GL_FALSE, glm::value_ptr(g_earth)
+    );
+    glUniform3f(colorLoc, 0.2f, 0.8f, 0.2f);
+    glUniform1i(isSunLoc, GL_FALSE);
+
+    g_sphere->render();
+
+    // 3. MOON
+    glUniformMatrix4fv(
+        modelLoc, 1, GL_FALSE, glm::value_ptr(g_moon)
+    );
+    glUniform3f(colorLoc, 0.2f, 0.4f, 1.0f);
+    glUniform1i(isSunLoc, GL_FALSE);
+
+    g_sphere->render();
 }
 
 // Update any accessible variable based on the current time

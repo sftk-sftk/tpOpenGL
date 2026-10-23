@@ -1,5 +1,5 @@
 #version 330 core	     // Minimal GL version support expected from the GPU
-
+/*
 uniform vec3 camPos;
 
 in vec3 fPosition;
@@ -60,4 +60,41 @@ void main() {
     vec3 result = ambient + diffuse + specular;
 
     color = vec4(clamp(result, 0.0, 1.0), 1.0);
+}
+*/
+
+in vec3 worldPosition;
+in vec3 worldNormal;
+
+uniform vec3 objectColor;
+uniform vec3 lightPos;
+uniform vec3 lightColor;
+uniform vec3 camPos;
+
+uniform bool isSun;
+
+out vec4 fragColor;
+
+void main() {
+    // The Sun uses ambient lighting only
+    if (isSun) {
+        fragColor = vec4(objectColor, 1.0);
+        return;
+    }
+
+    vec3 N = normalize(worldNormal);
+    vec3 L = normalize(lightPos - worldPosition);
+
+    // Ambient component
+    float ambientStrength = 0.15;
+    vec3 ambient = ambientStrength * lightColor;
+
+    // Diffuse component
+    float diff = max(dot(N, L), 0.0);
+    vec3 diffuse = diff * lightColor;
+
+    // Final color
+    vec3 result = objectColor * (ambient + diffuse);
+
+    fragColor = vec4(result, 1.0);
 }
