@@ -3,4 +3,5 @@ First I created a white tringle and I prefered to do it in a different function:
 Then I added colors to the vertixes with the function "g_vertexColors" and I needed to change "initGPUgeometry()" by adding a buffer "colorBufferSize". This was necessary in order to pass the colors to the GPU. I copied the code of "vertexBufferSize", I changed the names and the index. I added color settings (vertex attribute) also on vertexShader and fragmentShader files (slides pag 30)
 After I worked on the sphere mesh: I added the Mesh class. In this way I can encapsulate the geometry
 manipulation codes such as initializing data (e.g., vertex positions, normals, texture coordinates, triangle indices, etc.) and binding buffers to GPU.
-I used the spherical coordinate system (at each pole, multiple vertices are collocated) because it is easier to represent the planets (spheres).
+I used the spherical coordinate system (show a photo!!) (at each pole, multiple vertices are collocated) because it is easier to represent the planets (spheres).
+animation: apply trasformation and also to normals (key for shading)
