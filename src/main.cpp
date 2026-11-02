@@ -81,23 +81,6 @@ std::vector<unsigned int> g_triangleIndices;
 std::vector<float> g_vertexColors;
 
 // Mesh class
-/*
-class Mesh{
-public:
-  void init();
-  void render();
-  static std::shared_ptr<Mesh> genSphere(const size_t resolution=16);
-
-  private:
-    std::vector<float> m_vertexPositions;
-    std::vector<float> m_vertexNormals;
-    std::vector<unsigned int> m_triangleIndices;
-    GLuint m_vao = 0;
-    GLuint m_posVbo = 0;
-    GLuint m_normalVbo = 0;
-    GLuint m_ibo = 0;
-};*/
-
 class Mesh {
 public:
     void init();
@@ -140,28 +123,6 @@ std::shared_ptr<Mesh> Mesh::genSphere(const size_t resolution) {
         const float theta = pi * static_cast<float>(i) / n;
 
         for (unsigned int j = 0; j <= n; ++j) {
-          /*
-            const float phi = 2.0f * pi * static_cast<float>(j) / n;
-
-            const float x = std::sin(theta) * std::cos(phi);
-            const float y = std::cos(theta);
-            const float z = std::sin(theta) * std::sin(phi);
-            // Texture coordinates (UV)
-            const float u = static_cast<float>(j) / n;
-            const float v = static_cast<float>(i) / n;
-
-            sphere->m_vertexTexCoords.push_back(u);
-            sphere->m_vertexTexCoords.push_back(v);
-
-            // Sfera di raggio 1 centrata nell'origine
-            sphere->m_vertexPositions.push_back(x);
-            sphere->m_vertexPositions.push_back(y);
-            sphere->m_vertexPositions.push_back(z);
-
-            // Sulla sfera unitaria, la normale è uguale alla posizione
-            sphere->m_vertexNormals.push_back(x);
-            sphere->m_vertexNormals.push_back(y);
-            sphere->m_vertexNormals.push_back(z);*/
             const float phi = 2.0f * pi * static_cast<float>(j) / n;
 
             const float x = std::sin(theta) * std::cos(phi);
@@ -349,28 +310,9 @@ private:
   float m_aspectRatio = 1.f; // Ratio between the width and the height of the image
   float m_near = 0.1f; // Distance before which geometry is excluded from the rasterization process
   float m_far = 10.f; // Distance after which the geometry is excluded from the rasterization process
+
 };
 Camera g_camera;
-/*
-GLuint loadTextureFromFileToGPU(const std::string &filename) {
-  int width, height, numComponents;
-  // Loading the image in CPU memory using stb_image
-  unsigned char *data = stbi_load(
-    filename.c_str(),
-    &width, &height,
-    &numComponents, // 1 for a 8 bit grey-scale image, 3 for 24bits RGB image, 4 for 32bits RGBA image
-    0);
-
-  GLuint texID;
-  // TODO: create a texture and upload the image data in GPU memory using
-  // glGenTextures, glBindTexture, glTexParameteri, and glTexImage2D
-
-  // Free useless CPU memory
-  stbi_image_free(data);
-  glBindTexture(GL_TEXTURE_2D, 0); // unbind the texture
-
-  return texID;
-}*/
 
 GLuint loadTextureFromFileToGPU(const std::string &filename) {
     int width, height, numComponents;
@@ -663,7 +605,7 @@ void initCamera() {
   glfwGetWindowSize(g_window, &width, &height);
   g_camera.setAspectRatio(static_cast<float>(width)/static_cast<float>(height));
 
-  g_camera.setPosition(glm::vec3(0.0f, 0.0f, 40.0f));
+  g_camera.setPosition(glm::vec3(0.0f, 0.0f, -40.0f));
   g_camera.setFoV(40.0f);
   g_camera.setNear(0.1f);
   g_camera.setFar(100.0f);
@@ -679,52 +621,15 @@ void init() {
   g_sphere->init();
   initCamera();
 }
-/*
+
 void clear() {
   glDeleteProgram(g_program);
 
   glfwDestroyWindow(g_window);
   glfwTerminate();
 }
-*/
-void clear() {
-
-    std::cout << "1. Entering clear()" << std::endl;
-
-    glDeleteProgram(g_program);
-
-    std::cout << "2. Shader program deleted" << std::endl;
-
-    glfwDestroyWindow(g_window);
-
-    std::cout << "3. Window destroyed" << std::endl;
-
-    glfwTerminate();
-
-    std::cout << "4. GLFW terminated" << std::endl;
-}
 
 // The main rendering call
-/*void render() {
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Erase the color and z buffers.
-
-  glUseProgram(g_program);
-
-  const glm::mat4 viewMatrix = g_camera.computeViewMatrix();
-  const glm::mat4 projMatrix = g_camera.computeProjectionMatrix();
-  const glm::vec3 camPosition = g_camera.getPosition();
-
-  glUniformMatrix4fv(glGetUniformLocation(g_program, "viewMat"), 1, GL_FALSE, glm::value_ptr(viewMatrix)); // compute the view matrix of the camera and pass it to the GPU program
-  glUniformMatrix4fv(glGetUniformLocation(g_program, "projMat"), 1, GL_FALSE, glm::value_ptr(projMatrix)); // compute the projection matrix of the camera and pass it to the GPU program
-  glUniform3f(glGetUniformLocation(g_program, "camPos"), camPosition[0], camPosition[1], camPosition[2]);
-
-  // we don't use it anymore if we use Mesh g_sphere
-  //glBindVertexArray(g_vao);     // activate the VAO storing geometry data
-  //glDrawElements(GL_TRIANGLES, g_triangleIndices.size(), GL_UNSIGNED_INT, 0); // Call for rendering: stream the current GPU geometry through the current GPU program
-  //instead we write:
-  g_sphere->render();
-}*/
-
 void render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -904,8 +809,7 @@ int main(int argc, char ** argv) {
     glfwPollEvents();
   }
   clear();
-  glDeleteTextures(1, &g_sunTexID);
-  glDeleteTextures(1, &g_earthTexID);
-  glDeleteTextures(1, &g_moonTexID);
+  g_sphere.reset();
+
   return EXIT_SUCCESS;
 }
