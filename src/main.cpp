@@ -110,13 +110,15 @@ public:
 private:
     std::vector<float> m_vertexPositions;
     std::vector<float> m_vertexNormals;
-    std::vector<float> m_vertexTexCoords; // NEW
+    // This vector stores the UV coordinates of all sphere vertices
+    std::vector<float> m_vertexTexCoords;
     std::vector<unsigned int> m_triangleIndices;
 
     GLuint m_vao = 0;
     GLuint m_posVbo = 0;
     GLuint m_normalVbo = 0;
-    GLuint m_texCoordVbo = 0; // NEW
+    // GPU buffer identifier used to store the texture coordinates
+    GLuint m_texCoordVbo = 0;
     GLuint m_ibo = 0;
 };
 
@@ -239,7 +241,7 @@ void Mesh::init() {
     glGenVertexArrays(1, &m_vao);
     glBindVertexArray(m_vao);
 
-    // VBO delle posizioni: attributo 0
+    // Position VBO: attribute 0
     glGenBuffers(1, &m_posVbo);
     glBindBuffer(GL_ARRAY_BUFFER, m_posVbo);
     glBufferData(
@@ -254,7 +256,7 @@ void Mesh::init() {
     );
     glEnableVertexAttribArray(0);
 
-    // VBO delle normali: attributo 1
+    // Normals VBO: attribute 1
     glGenBuffers(1, &m_normalVbo);
     glBindBuffer(GL_ARRAY_BUFFER, m_normalVbo);
     glBufferData(
@@ -269,10 +271,13 @@ void Mesh::init() {
     );
     glEnableVertexAttribArray(1);
 
-    // VBO delle coordinate texture: attributo 2
+    // Texture coordinate VBO: attribute 2
+    // Create a GPU buffer
     glGenBuffers(1, &m_texCoordVbo);
+    // Bind the buffer
     glBindBuffer(GL_ARRAY_BUFFER, m_texCoordVbo);
 
+    // Copy the texture coordinates to GPU memory
     glBufferData(
         GL_ARRAY_BUFFER,
         m_vertexTexCoords.size() * sizeof(float),
@@ -280,11 +285,13 @@ void Mesh::init() {
         GL_STATIC_DRAW
     );
 
+    // Describe the vertex attribute
     glVertexAttribPointer(
         2, 2, GL_FLOAT, GL_FALSE,
         2 * sizeof(float), nullptr
     );
 
+    // Enable the attribute
     glEnableVertexAttribArray(2);
 
     // IBO degli indici dei triangoli
@@ -377,6 +384,7 @@ GLuint loadTextureFromFileToGPU(const std::string &filename) {
         0
     );
 
+    // Check whether the image was successfully loaded
     if (!data) {
         std::cerr << "Failed to load texture: "
                   << filename << "\n"
@@ -389,12 +397,15 @@ GLuint loadTextureFromFileToGPU(const std::string &filename) {
     GLint internalFormat;
 
     if (numComponents == 1) {
+        // Grayscale image
         format = GL_RED;
         internalFormat = GL_R8;
     } else if (numComponents == 3) {
+        // Red, Green, Blue
         format = GL_RGB;
         internalFormat = GL_RGB8;
     } else if (numComponents == 4) {
+        // Red, Green, Blue, Alpha
         format = GL_RGBA;
         internalFormat = GL_RGBA8;
     } else {
@@ -405,6 +416,7 @@ GLuint loadTextureFromFileToGPU(const std::string &filename) {
     }
 
     GLuint texID = 0;
+    // Create a texture object
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
 
@@ -667,12 +679,29 @@ void init() {
   g_sphere->init();
   initCamera();
 }
-
+/*
 void clear() {
   glDeleteProgram(g_program);
 
   glfwDestroyWindow(g_window);
   glfwTerminate();
+}
+*/
+void clear() {
+
+    std::cout << "1. Entering clear()" << std::endl;
+
+    glDeleteProgram(g_program);
+
+    std::cout << "2. Shader program deleted" << std::endl;
+
+    glfwDestroyWindow(g_window);
+
+    std::cout << "3. Window destroyed" << std::endl;
+
+    glfwTerminate();
+
+    std::cout << "4. GLFW terminated" << std::endl;
 }
 
 // The main rendering call
@@ -813,7 +842,7 @@ void update(const float currentTimeInSec) {
     );
 
     // 2. Earth self-rotation, with a slightly tilted axis
-    const float tiltAngle = glm::radians(15.0f);
+    const float tiltAngle = glm::radians(23.5f);
 
     const glm::vec3 earthAxis = glm::normalize(
         glm::vec3(
