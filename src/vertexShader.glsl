@@ -22,25 +22,29 @@ void main() {
 }
 */
 
+
+#version 330 core
+
 layout(location = 0) in vec3 position;
 layout(location = 1) in vec3 normal;
+layout(location = 2) in vec2 texCoord;
 
-// Matrices
 uniform mat4 modelMat;
 uniform mat4 viewMat;
 uniform mat4 projMat;
 
-// Data passed to the fragment shader
 out vec3 worldPosition;
 out vec3 worldNormal;
+out vec2 fTexCoord;
 
 void main() {
     vec4 worldPos = modelMat * vec4(position, 1.0);
 
     worldPosition = worldPos.xyz;
+    worldNormal =
+        mat3(transpose(inverse(modelMat))) * normal;
 
-    // Correct transformation of normals
-    worldNormal = mat3(transpose(inverse(modelMat))) * normal;
+    fTexCoord = texCoord;
 
     gl_Position = projMat * viewMat * worldPos;
 }

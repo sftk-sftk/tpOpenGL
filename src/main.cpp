@@ -68,6 +68,11 @@ GLuint g_posVbo = 0;
 GLuint g_ibo = 0;
 GLuint g_colorVbo = 0;
 
+
+GLuint g_sunTexID = 0;
+GLuint g_earthTexID = 0;
+GLuint g_moonTexID = 0;
+
 // All vertex positions packed in one array [x0, y0, z0, x1, y1, z1, ...]
 std::vector<float> g_vertexPositions;
 // All triangle indices packed in one array [v00, v01, v02, v10, v11, v12, ...] with vij the index of j-th vertex of the i-th triangle
@@ -76,6 +81,7 @@ std::vector<unsigned int> g_triangleIndices;
 std::vector<float> g_vertexColors;
 
 // Mesh class
+/*
 class Mesh{
 public:
   void init();
@@ -89,6 +95,28 @@ public:
     GLuint m_vao = 0;
     GLuint m_posVbo = 0;
     GLuint m_normalVbo = 0;
+    GLuint m_ibo = 0;
+};*/
+
+class Mesh {
+public:
+    void init();
+    void render();
+
+    static std::shared_ptr<Mesh> genSphere(
+        const size_t resolution = 16
+    );
+
+private:
+    std::vector<float> m_vertexPositions;
+    std::vector<float> m_vertexNormals;
+    std::vector<float> m_vertexTexCoords; // NEW
+    std::vector<unsigned int> m_triangleIndices;
+
+    GLuint m_vao = 0;
+    GLuint m_posVbo = 0;
+    GLuint m_normalVbo = 0;
+    GLuint m_texCoordVbo = 0; // NEW
     GLuint m_ibo = 0;
 };
 
@@ -110,11 +138,18 @@ std::shared_ptr<Mesh> Mesh::genSphere(const size_t resolution) {
         const float theta = pi * static_cast<float>(i) / n;
 
         for (unsigned int j = 0; j <= n; ++j) {
+          /*
             const float phi = 2.0f * pi * static_cast<float>(j) / n;
 
             const float x = std::sin(theta) * std::cos(phi);
             const float y = std::cos(theta);
             const float z = std::sin(theta) * std::sin(phi);
+            // Texture coordinates (UV)
+            const float u = static_cast<float>(j) / n;
+            const float v = static_cast<float>(i) / n;
+
+            sphere->m_vertexTexCoords.push_back(u);
+            sphere->m_vertexTexCoords.push_back(v);
 
             // Sfera di raggio 1 centrata nell'origine
             sphere->m_vertexPositions.push_back(x);
@@ -124,7 +159,27 @@ std::shared_ptr<Mesh> Mesh::genSphere(const size_t resolution) {
             // Sulla sfera unitaria, la normale è uguale alla posizione
             sphere->m_vertexNormals.push_back(x);
             sphere->m_vertexNormals.push_back(y);
+            sphere->m_vertexNormals.push_back(z);*/
+            const float phi = 2.0f * pi * static_cast<float>(j) / n;
+
+            const float x = std::sin(theta) * std::cos(phi);
+            const float y = std::cos(theta);
+            const float z = std::sin(theta) * std::sin(phi);
+
+            sphere->m_vertexPositions.push_back(x);
+            sphere->m_vertexPositions.push_back(y);
+            sphere->m_vertexPositions.push_back(z);
+
+            sphere->m_vertexNormals.push_back(x);
+            sphere->m_vertexNormals.push_back(y);
             sphere->m_vertexNormals.push_back(z);
+
+            // NEW: UV coordinates
+            const float u = static_cast<float>(j) / n;
+            const float v = static_cast<float>(i) / n;
+
+            sphere->m_vertexTexCoords.push_back(u);
+            sphere->m_vertexTexCoords.push_back(v);
         }
     }
 
@@ -214,6 +269,24 @@ void Mesh::init() {
     );
     glEnableVertexAttribArray(1);
 
+    // VBO delle coordinate texture: attributo 2
+    glGenBuffers(1, &m_texCoordVbo);
+    glBindBuffer(GL_ARRAY_BUFFER, m_texCoordVbo);
+
+    glBufferData(
+        GL_ARRAY_BUFFER,
+        m_vertexTexCoords.size() * sizeof(float),
+        m_vertexTexCoords.data(),
+        GL_STATIC_DRAW
+    );
+
+    glVertexAttribPointer(
+        2, 2, GL_FLOAT, GL_FALSE,
+        2 * sizeof(float), nullptr
+    );
+
+    glEnableVertexAttribArray(2);
+
     // IBO degli indici dei triangoli
     glGenBuffers(1, &m_ibo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
@@ -271,7 +344,7 @@ private:
   float m_far = 10.f; // Distance after which the geometry is excluded from the rasterization process
 };
 Camera g_camera;
-
+/*
 GLuint loadTextureFromFileToGPU(const std::string &filename) {
   int width, height, numComponents;
   // Loading the image in CPU memory using stb_image
@@ -290,7 +363,92 @@ GLuint loadTextureFromFileToGPU(const std::string &filename) {
   glBindTexture(GL_TEXTURE_2D, 0); // unbind the texture
 
   return texID;
+}*/
+
+GLuint loadTextureFromFileToGPU(const std::string &filename) {
+    int width, height, numComponents;
+
+    // Load image from disk
+    unsigned char *data = stbi_load(
+        filename.c_str(),
+        &width,
+        &height,
+        &numComponents,
+        0
+    );
+
+    if (!data) {
+        std::cerr << "Failed to load texture: "
+                  << filename << "\n"
+                  << stbi_failure_reason() << std::endl;
+        return 0;
+    }
+
+    // Determine image format
+    GLenum format;
+    GLint internalFormat;
+
+    if (numComponents == 1) {
+        format = GL_RED;
+        internalFormat = GL_R8;
+    } else if (numComponents == 3) {
+        format = GL_RGB;
+        internalFormat = GL_RGB8;
+    } else if (numComponents == 4) {
+        format = GL_RGBA;
+        internalFormat = GL_RGBA8;
+    } else {
+        std::cerr << "Unsupported number of channels: "
+                  << numComponents << std::endl;
+        stbi_image_free(data);
+        return 0;
+    }
+
+    GLuint texID = 0;
+    glGenTextures(1, &texID);
+    glBindTexture(GL_TEXTURE_2D, texID);
+
+    // Filtering
+    glTexParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR
+    );
+    glTexParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR
+    );
+
+    // Repeat texture coordinates
+    glTexParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT
+    );
+    glTexParameteri(
+        GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT
+    );
+
+    // Avoid incorrect row alignment for single-channel images
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    glTexImage2D(
+        GL_TEXTURE_2D,
+        0,
+        internalFormat,
+        width,
+        height,
+        0,
+        format,
+        GL_UNSIGNED_BYTE,
+        data
+    );
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+
+    // Free CPU memory
+    stbi_image_free(data);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    return texID;
 }
+
 
 // Executed each time the window is resized. Adjust the aspect ratio and the rendering viewport to the current window.
 void windowSizeCallback(GLFWwindow* window, int width, int height) {
@@ -394,7 +552,14 @@ void initGPUprogram() {
   glLinkProgram(g_program); // The main GPU program is ready to be handle streams of polygons
 
   glUseProgram(g_program);
-  // TODO: set shader variables, textures, etc.
+  g_earthTexID = loadTextureFromFileToGPU("media/earth.jpg");
+  g_moonTexID = loadTextureFromFileToGPU("media/moon.jpg");
+
+  // Tell the shader which texture units to use
+  glUniform1i(
+      glGetUniformLocation(g_program, "material.albedoTex"),
+      0
+  );
 }
 
 void initDrawTriangle(){
@@ -578,11 +743,11 @@ void render() {
     glUniform3f(lightPosLoc, 0.0f, 0.0f, 0.0f);
     glUniform3f(lightColorLoc, 1.0f, 1.0f, 1.0f);
 
-    // 1. SUN
+    /// 1. SUN
     glUniformMatrix4fv(
         modelLoc, 1, GL_FALSE, glm::value_ptr(g_sun)
     );
-    glUniform3f(colorLoc, 1.0f, 0.8f, 0.1f);
+
     glUniform1i(isSunLoc, GL_TRUE);
 
     g_sphere->render();
@@ -594,6 +759,10 @@ void render() {
     glUniform3f(colorLoc, 0.2f, 0.8f, 0.2f);
     glUniform1i(isSunLoc, GL_FALSE);
 
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, g_earthTexID);
+    glUniform1i(isSunLoc, GL_FALSE);
+
     g_sphere->render();
 
     // 3. MOON
@@ -601,6 +770,10 @@ void render() {
         modelLoc, 1, GL_FALSE, glm::value_ptr(g_moon)
     );
     glUniform3f(colorLoc, 0.2f, 0.4f, 1.0f);
+    glUniform1i(isSunLoc, GL_FALSE);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, g_moonTexID);
     glUniform1i(isSunLoc, GL_FALSE);
 
     g_sphere->render();
@@ -702,5 +875,8 @@ int main(int argc, char ** argv) {
     glfwPollEvents();
   }
   clear();
+  glDeleteTextures(1, &g_sunTexID);
+  glDeleteTextures(1, &g_earthTexID);
+  glDeleteTextures(1, &g_moonTexID);
   return EXIT_SUCCESS;
 }
