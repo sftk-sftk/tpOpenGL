@@ -146,7 +146,7 @@ std::shared_ptr<Mesh> Mesh::genSphere(const size_t resolution) {
         }
     }
 
-    // Generation of triangle indices"
+    // Generation of triangle indices
     for (unsigned int i = 0; i < n; ++i) {
         for (unsigned int j = 0; j < n; ++j) {
             const unsigned int k1 = i * (n + 1) + j;
