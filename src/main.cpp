@@ -118,7 +118,7 @@ std::shared_ptr<Mesh> Mesh::genSphere(const size_t resolution) {
 
     const float pi = std::acos(-1.0f);
 
-    // Generazione dei vertici e delle normali
+    // Generation of vertices and normals
     for (unsigned int i = 0; i <= n; ++i) {
         const float theta = pi * static_cast<float>(i) / n;
 
@@ -137,7 +137,7 @@ std::shared_ptr<Mesh> Mesh::genSphere(const size_t resolution) {
             sphere->m_vertexNormals.push_back(y);
             sphere->m_vertexNormals.push_back(z);
 
-            // NEW: UV coordinates
+            // UV coordinates
             const float u = static_cast<float>(j) / n;
             const float v = static_cast<float>(i) / n;
 
@@ -146,18 +146,18 @@ std::shared_ptr<Mesh> Mesh::genSphere(const size_t resolution) {
         }
     }
 
-    // Generazione degli indici dei triangoli
+    // Generation of triangle indices"
     for (unsigned int i = 0; i < n; ++i) {
         for (unsigned int j = 0; j < n; ++j) {
             const unsigned int k1 = i * (n + 1) + j;
             const unsigned int k2 = k1 + n + 1;
 
-            // Primo triangolo
+            // First triangle
             sphere->m_triangleIndices.push_back(k1);
             sphere->m_triangleIndices.push_back(k1 + 1);
             sphere->m_triangleIndices.push_back(k2);
 
-            // Secondo triangolo
+            // Second triangle
             sphere->m_triangleIndices.push_back(k1 + 1);
             sphere->m_triangleIndices.push_back(k2 + 1);
             sphere->m_triangleIndices.push_back(k2);
@@ -255,7 +255,7 @@ void Mesh::init() {
     // Enable the attribute
     glEnableVertexAttribArray(2);
 
-    // IBO degli indici dei triangoli
+    // IBO for triangle indices
     glGenBuffers(1, &m_ibo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
     glBufferData(
@@ -381,17 +381,7 @@ GLuint loadTextureFromFileToGPU(const std::string &filename) {
     // Avoid incorrect row alignment for single-channel images
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-    glTexImage2D(
-        GL_TEXTURE_2D,
-        0,
-        internalFormat,
-        width,
-        height,
-        0,
-        format,
-        GL_UNSIGNED_BYTE,
-        data
-    );
+    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, GL_UNSIGNED_BYTE, data);
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
 
